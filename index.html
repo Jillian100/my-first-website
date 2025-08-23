@@ -828,7 +828,8 @@
 
             async fetchWeather() {
                 try {
-                    const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city},${this.countryCode}&appid=${this.apiKey}&units=metric&lang=zh_tw`;
+                    // 使用 HTTPS 版本的 API
+                    const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city},${this.countryCode}&appid=${this.apiKey}&units=metric&lang=zh_tw`;
                     const response = await fetch(url);
                     
                     if (!response.ok) {
