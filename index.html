@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="我的第一個 AI 專案網站">
+    <meta name="keywords" content="AI, 專案, 網站">
+    <meta name="author" content="您的名字">
+    <title>我的第一個 AI 專案</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        nav {
+            background-color: #444;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #555;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .content-section {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+        }
+        
+        /* 午餐選擇器樣式 */
+        .lunch-selector {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        /* 鑽石戒指按鈕樣式 */
+        .lunch-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 25%, #ffffff 50%, #ffed4e 75%, #ffd700 100%);
+            color: #8b4513;
+            border: 4px solid #daa520;
+            padding: 1.5rem 3rem;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4),
+                0 0 60px rgba(255, 215, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .lunch-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transform: rotate(45deg);
+            animation: diamond-shine 3s infinite;
+        }
+        
+        .lunch-btn::after {
+            content: '💎';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 2rem;
+            animation: diamond-sparkle 2s infinite;
+        }
+        
+        .lunch-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 0 30px rgba(255, 215, 0, 0.8),
+                0 0 60px rgba(255, 215, 0, 0.6),
+                0 0 90px rgba(255, 215, 0, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, #ffed4e 0%, #ffffff 25%, #ffd700 50%, #ffffff 75%, #ffed4e 100%);
+        }
+        
+        .lunch-btn:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 
+                0 0 15px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes diamond-shine {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            50% { transform: rotate(45deg) translateX(100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+        
+        @keyframes diamond-sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            25% { transform: scale(1.2) rotate(90deg); opacity: 0.8; }
+            50% { transform: scale(0.8) rotate(180deg); opacity: 1; }
+            75% { transform: scale(1.1) rotate(270deg); opacity: 0.9; }
+        }
+        
+        .lunch-result {
+            min-height: 80px;
+            margin: 2rem 0;
+            padding: 1rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+        
+        .lunch-result.show {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #8b4513;
+            border: 3px solid #ffa500;
+            animation: bounce 0.6s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            80% { transform: translateY(-10px); }
+        }
+        
+        .lunch-options {
+            margin-top: 3rem;
+            text-align: left;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .option-category {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .option-category h4 {
+            color: #007bff;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .option-category ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .option-category li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+            color: #495057;
+        }
+        
+        .option-category li:last-child {
+            border-bottom: none;
+        }
+        
+        .option-category li:hover {
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>歡迎來到我的第一個 AI 專案</h1>
+        <p>這是一個基本的 HTML 網站架構</p>
+    </header>
+    
+    <nav>
+        <a href="#home">首頁</a>
+        <a href="#about">關於</a>
+        <a href="#projects">專案</a>
+        <a href="#lunch">午餐選擇器</a>
+        <a href="#contact">聯絡我們</a>
+    </nav>
+    
+    <main>
+        <section id="home" class="content-section">
+            <h2>首頁</h2>
+            <p>歡迎來到我的第一個 AI 專案網站（吉兒）！這個網站展示了基本的 HTML 結構和樣式。</p>
+            <div class="highlight">
+                <strong>特色：</strong>
+                <ul>
+                    <li>響應式設計</li>
+                    <li>現代化的 CSS 樣式</li>
+                    <li>清晰的導航結構</li>
+                    <li>專業的版面配置</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="about" class="content-section">
+            <h2>關於我們</h2>
+            <p>這是一個學習專案，旨在展示基本的 HTML 和 CSS 技能。我們致力於創建美觀且實用的網站。</p>
+        </section>
+        
+        <section id="projects" class="content-section">
+            <h2>專案展示</h2>
+            <p>這裡將展示我們的最新專案和作品。敬請期待更多精彩內容！</p>
+        </section>
+        
+        <section id="lunch" class="content-section">
+            <h2>🍽️ 午餐選擇器</h2>
+            <p>不知道今天午餐要吃什麼嗎？讓我們的隨機選擇器幫你決定吧！</p>
+            
+            <div class="lunch-selector">
+                <button id="randomLunch" class="lunch-btn">💎 鑽石午餐選擇器 💎</button>
+                <div id="result" class="lunch-result"></div>
+                
+                <div class="lunch-options">
+                    <h3>午餐選項清單：</h3>
+                    <div class="options-grid">
+                        <div class="option-category">
+                            <h4>🍜 麵食類</h4>
+                            <ul>
+                                <li>牛肉麵</li>
+                                <li>陽春麵</li>
+                                <li>炸醬麵</li>
+                                <li>擔擔麵</li>
+                                <li>麻醬麵</li>
+                            </ul>
+                        </div>
+                        <div class="option-category">
+                            <h4>🍚 飯食類</h4>
+                            <ul>
+                                <li>滷肉飯</li>
+                                <li>雞肉飯</li>
+                                <li>排骨飯</li>
+                                <li>雞腿飯</li>
+                                <li>魚排飯</li>
+                            </ul>
+                        </div>
+                        <div class="option-category">
+                            <h4>🥘 熱炒類</h4>
+                            <ul>
+                                <li>宮保雞丁</li>
+                                <li>麻婆豆腐</li>
+                                <li>魚香肉絲</li>
+                                <li>青椒炒肉</li>
+                                <li>蒜苗炒肉</li>
+                            </ul>
+                        </div>
+                        <div class="option-category">
+                            <h4>🥗 輕食類</h4>
+                            <ul>
+                                <li>沙拉</li>
+                                <li>三明治</li>
+                                <li>壽司</li>
+                                <li>便當</li>
+                                <li>湯麵</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="content-section">
+            <h2>聯絡我們</h2>
+            <p>如果您有任何問題或建議，歡迎與我們聯絡。</p>
+            <p>電子郵件：your.email@example.com</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 我的第一個 AI 專案. 版權所有.</p>
+    </footer>
+    
+    <script>
+        // 午餐選擇器功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const randomBtn = document.getElementById('randomLunch');
+            const resultDiv = document.getElementById('result');
+            
+            // 午餐選項陣列
+            const lunchOptions = [
+                // 麵食類
+                '牛肉麵', '陽春麵', '炸醬麵', '擔擔麵', '麻醬麵',
+                // 飯食類
+                '滷肉飯', '雞肉飯', '排骨飯', '雞腿飯', '魚排飯',
+                // 熱炒類
+                '宮保雞丁', '麻婆豆腐', '魚香肉絲', '青椒炒肉', '蒜苗炒肉',
+                // 輕食類
+                '沙拉', '三明治', '壽司', '便當', '湯麵',
+                // 額外選項
+                '火鍋', '燒烤', '披薩', '漢堡', '義大利麵', '炒飯', '水餃', '小籠包'
+            ];
+            
+            // 隨機選擇函數
+            function getRandomLunch() {
+                const randomIndex = Math.floor(Math.random() * lunchOptions.length);
+                return lunchOptions[randomIndex];
+            }
+            
+            // 點擊按鈕事件
+            randomBtn.addEventListener('click', function() {
+                // 按鈕動畫效果
+                randomBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    randomBtn.style.transform = 'scale(1)';
+                }, 150);
+                
+                // 顯示結果
+                const selectedLunch = getRandomLunch();
+                resultDiv.textContent = `🎉 今天午餐吃：${selectedLunch} 🎉`;
+                resultDiv.className = 'lunch-result show';
+                
+                // 3秒後隱藏動畫效果
+                setTimeout(() => {
+                    resultDiv.classList.remove('show');
+                }, 3000);
+            });
+            
+            // 添加鍵盤快捷鍵支援
+            document.addEventListener('keydown', function(event) {
+                if (event.code === 'Space' && event.target === document.body) {
+                    event.preventDefault();
+                    randomBtn.click();
+                }
+            });
+            
+            // 添加觸控支援（針對手機）
+            randomBtn.addEventListener('touchstart', function(event) {
+                event.preventDefault();
+                randomBtn.click();
+            });
+        });
+    </script>
+</body>
+</html>
