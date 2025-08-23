@@ -7,6 +7,9 @@
     <meta name="keywords" content="AI, 專案, 網站">
     <meta name="author" content="您的名字">
     <title>我的第一個 AI 專案</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -239,6 +242,305 @@
             color: #007bff;
             font-weight: bold;
         }
+        
+        /* 天氣儀表板樣式 */
+        .weather-loading {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+        
+        .weather-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #e9ecef;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 整合的天氣區塊 */
+        .weather-integrated {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .weather-main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        .weather-main {
+            background: transparent;
+            color: white;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        .weather-main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .weather-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .weather-temperature {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .weather-description {
+            font-size: 1.3rem;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }
+        
+        /* 小小的更新時間 */
+        .weather-update-mini {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .weather-update-mini span:first-child {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .weather-update-mini span:last-child {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .weather-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .weather-detail-item i {
+            font-size: 1.2rem;
+            color: #4facfe;
+        }
+        
+        .detail-text h4 {
+            font-size: 0.8rem;
+            color: #e0e0e0;
+            margin-bottom: 0.2rem;
+        }
+        
+        .detail-text p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .weather-visual {
+            text-align: center;
+        }
+        
+        .weather-icon {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+        }
+        
+        .weather-update-time p:first-child {
+            font-size: 1rem;
+            color: #e0e0e0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .weather-update-time p:last-child {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        /* 智能喝水提醒樣式 */
+        .hydration-reminder {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        /* 整合區塊中的喝水提醒 */
+        .hydration-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hydration-reminder h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .hydration-reminder p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+        
+        .hydration-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .water-drop {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .hydration-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .hydration-info p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .hydration-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .hydration-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .hydration-btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .hydration-btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .hydration-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .hydration-record {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .hydration-record p:first-child {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .hydration-record p:last-child {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .weather-integrated {
+                padding: 1.5rem;
+            }
+            
+            .weather-main-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .weather-temperature {
+                font-size: 3rem;
+            }
+            
+            .weather-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .hydration-status {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hydration-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -247,13 +549,14 @@
         <p>這是一個基本的 HTML 網站架構</p>
     </header>
     
-    <nav>
-        <a href="#home">首頁</a>
-        <a href="#about">關於</a>
-        <a href="#projects">專案</a>
-        <a href="#lunch">午餐選擇器</a>
-        <a href="#contact">聯絡我們</a>
-    </nav>
+            <nav>
+            <a href="#home">首頁</a>
+            <a href="#about">關於</a>
+            <a href="#projects">專案</a>
+            <a href="#lunch">午餐選擇器</a>
+            <a href="#weather">天氣儀表板</a>
+            <a href="#contact">聯絡我們</a>
+        </nav>
     
     <main>
         <section id="home" class="content-section">
@@ -336,6 +639,92 @@
             </div>
         </section>
         
+        <section id="weather" class="content-section">
+            <h2>🌤️ 台北天氣儀表板</h2>
+            <p>實時天氣資訊與智能喝水提醒系統</p>
+            
+            <!-- 載入動畫 -->
+            <div id="weatherLoading" class="weather-loading">
+                <div class="weather-spinner"></div>
+                <p>正在獲取最新天氣資訊...</p>
+            </div>
+
+            <!-- 整合的天氣和喝水提醒區塊 -->
+            <div id="weatherMain" class="weather-integrated" style="display: none;">
+                <div class="weather-main-content">
+                                         <div class="weather-info">
+                         <h3>台北市</h3>
+                         <div class="weather-temperature" id="weatherTemperature">--°C</div>
+                         <div class="weather-description" id="weatherDescription">載入中...</div>
+                         
+                         <!-- 小小的更新時間 -->
+                         <div class="weather-update-mini">
+                             <span>更新時間：</span><span id="weatherLastUpdate">--</span>
+                         </div>
+                         
+                         <div class="weather-details">
+                            <div class="weather-detail-item">
+                                <i class="fas fa-thermometer-half"></i>
+                                <div class="detail-text">
+                                    <h4>體感溫度</h4>
+                                    <p id="weatherFeelsLike">--°C</p>
+                                </div>
+                            </div>
+                            <div class="weather-detail-item">
+                                <i class="fas fa-tint"></i>
+                                <div class="detail-text">
+                                    <h4>濕度</h4>
+                                    <p id="weatherHumidity">--%</p>
+                                </div>
+                            </div>
+                            <div class="weather-detail-item">
+                                <i class="fas fa-wind"></i>
+                                <div class="detail-text">
+                                    <h4>風速</h4>
+                                    <p id="weatherWindSpeed">-- m/s</p>
+                                </div>
+                            </div>
+                            <div class="weather-detail-item">
+                                <i class="fas fa-eye"></i>
+                                <div class="detail-text">
+                                    <h4>能見度</h4>
+                                    <p id="weatherVisibility">-- km</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 智能喝水提醒整合到右側 -->
+                    <div class="hydration-section">
+                        <h3>💧 智能喝水提醒</h3>
+                        <p>根據當前天氣狀況，為您提供個性化喝水建議</p>
+                        
+                        <div class="hydration-status">
+                            <div class="water-drop" id="waterDrop">💧</div>
+                            <div class="hydration-info">
+                                <h4 id="hydrationTitle">準備開始喝水</h4>
+                                <p id="hydrationMessage">點擊下方按鈕記錄您的喝水情況</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hydration-actions">
+                            <button class="hydration-btn hydration-btn-primary" id="drinkWater">
+                                <i class="fas fa-plus"></i> 記錄喝水
+                            </button>
+                            <button class="hydration-btn hydration-btn-secondary" id="resetHydration">
+                                <i class="fas fa-redo"></i> 重置計數
+                            </button>
+                        </div>
+                        
+                        <div class="hydration-record">
+                            <p><strong>今日喝水記錄：</strong></p>
+                            <p id="drinkCount">0 杯</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section id="contact" class="content-section">
             <h2>聯絡我們</h2>
             <p>如果您有任何問題或建議，歡迎與我們聯絡。</p>
@@ -405,6 +794,329 @@
                 event.preventDefault();
                 randomBtn.click();
             });
+        });
+        
+        // 天氣儀表板功能
+        class WeatherDashboard {
+            constructor() {
+                this.apiKey = '7deeccd8178aac1d20bd20bbcb789325';
+                this.city = 'Taipei';
+                this.countryCode = 'TW';
+                this.drinkCount = 0;
+                this.lastDrinkTime = null;
+                
+                this.init();
+            }
+
+            async init() {
+                this.showLoading();
+                await this.fetchWeather();
+                this.setupEventListeners();
+                this.startAutoRefresh();
+                this.updateHydrationStatus();
+            }
+
+            showLoading() {
+                document.getElementById('weatherLoading').style.display = 'block';
+                document.getElementById('weatherMain').style.display = 'none';
+            }
+
+            hideLoading() {
+                document.getElementById('weatherLoading').style.display = 'none';
+                document.getElementById('weatherMain').style.display = 'block';
+            }
+
+            async fetchWeather() {
+                try {
+                    const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city},${this.countryCode}&appid=${this.apiKey}&units=metric&lang=zh_tw`;
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    this.updateWeatherUI(data);
+                    this.hideLoading();
+                } catch (error) {
+                    console.error('Error fetching weather:', error);
+                    this.showError('無法獲取天氣資訊，請檢查網路連線');
+                    this.hideLoading();
+                }
+            }
+
+            updateWeatherUI(data) {
+                // 主要天氣資訊
+                document.getElementById('weatherTemperature').textContent = `${Math.round(data.main.temp)}°C`;
+                document.getElementById('weatherFeelsLike').textContent = `${Math.round(data.main.feels_like)}°C`;
+                document.getElementById('weatherHumidity').textContent = `${data.main.humidity}%`;
+                document.getElementById('weatherWindSpeed').textContent = `${data.wind.speed} m/s`;
+                document.getElementById('weatherVisibility').textContent = `${(data.visibility / 1000).toFixed(1)}`;
+                
+                // 天氣描述和圖示
+                const weatherDescription = data.weather[0].description;
+                document.getElementById('weatherDescription').textContent = weatherDescription;
+                
+                // 根據天氣狀況選擇圖示
+                const weatherIcon = this.getWeatherIcon(data.weather[0].main, data.weather[0].description);
+                document.getElementById('weatherIcon').textContent = weatherIcon;
+                
+                // 更新時間
+                const now = new Date();
+                document.getElementById('weatherLastUpdate').textContent = now.toLocaleTimeString('zh-TW');
+                
+                // 更新喝水提醒
+                this.updateHydrationRecommendation(data);
+            }
+
+            getWeatherIcon(weatherMain, description) {
+                const iconMap = {
+                    'Clear': '☀️',
+                    'Clouds': '☁️',
+                    'Rain': '🌧️',
+                    'Drizzle': '🌦️',
+                    'Thunderstorm': '⛈️',
+                    'Snow': '❄️',
+                    'Mist': '🌫️',
+                    'Fog': '🌫️',
+                    'Haze': '🌫️'
+                };
+                
+                return iconMap[weatherMain] || '🌤️';
+            }
+
+            updateHydrationRecommendation(weatherData) {
+                const temp = weatherData.main.temp;
+                const humidity = weatherData.main.humidity;
+                
+                let recommendation = '';
+                let message = '';
+                
+                if (temp > 30) {
+                    recommendation = '高溫提醒';
+                    message = '天氣炎熱，建議每小時喝一杯水！';
+                } else if (temp > 25) {
+                    recommendation = '適中溫度';
+                    message = '溫度適中，建議每2小時喝一杯水';
+                } else if (temp > 20) {
+                    recommendation = '涼爽天氣';
+                    message = '天氣涼爽，建議每3小時喝一杯水';
+                } else {
+                    recommendation = '寒冷天氣';
+                    message = '天氣較冷，建議每4小時喝一杯水';
+                }
+                
+                if (humidity < 40) {
+                    message += '，空氣乾燥需要多補充水分';
+                }
+                
+                document.getElementById('hydrationTitle').textContent = recommendation;
+                document.getElementById('hydrationMessage').textContent = message;
+            }
+
+            setupEventListeners() {
+                document.getElementById('drinkWater').addEventListener('click', () => {
+                    this.recordDrink();
+                });
+                
+                document.getElementById('resetHydration').addEventListener('click', () => {
+                    this.resetHydration();
+                });
+            }
+
+            recordDrink() {
+                this.drinkCount++;
+                this.lastDrinkTime = new Date();
+                
+                // 更新UI
+                document.getElementById('drinkCount').textContent = `${this.drinkCount} 杯`;
+                
+                // 動畫效果
+                const waterDrop = document.getElementById('waterDrop');
+                waterDrop.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    waterDrop.style.transform = 'scale(1)';
+                }, 200);
+                
+                // 顯示鼓勵訊息
+                this.showEncouragement();
+                
+                // 儲存到localStorage
+                this.saveHydrationData();
+            }
+
+            resetHydration() {
+                this.drinkCount = 0;
+                this.lastDrinkTime = null;
+                document.getElementById('drinkCount').textContent = '0 杯';
+                this.saveHydrationData();
+                
+                // 顯示重置訊息
+                const hydrationTitle = document.getElementById('hydrationTitle');
+                const hydrationMessage = document.getElementById('hydrationMessage');
+                
+                hydrationTitle.textContent = '已重置';
+                hydrationMessage.textContent = '喝水計數已重置，重新開始記錄吧！';
+                
+                setTimeout(() => {
+                    this.updateHydrationStatus();
+                }, 2000);
+            }
+
+            showEncouragement() {
+                const encouragements = [
+                    '💪 太棒了！繼續保持！',
+                    '🌟 你做得很好！',
+                    '🎉 又完成一次喝水！',
+                    '💧 身體會感謝你的！',
+                    '✨ 健康生活從喝水開始！'
+                ];
+                
+                const randomEncouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
+                
+                const hydrationTitle = document.getElementById('hydrationTitle');
+                const originalText = hydrationTitle.textContent;
+                
+                hydrationTitle.textContent = randomEncouragement;
+                hydrationTitle.style.color = '#4facfe';
+                
+                setTimeout(() => {
+                    hydrationTitle.textContent = originalText;
+                    hydrationTitle.style.color = '';
+                }, 2000);
+            }
+
+            updateHydrationStatus() {
+                if (this.lastDrinkTime) {
+                    const timeSinceLastDrink = Date.now() - this.lastDrinkTime.getTime();
+                    const hoursSinceLastDrink = timeSinceLastDrink / (1000 * 60 * 60);
+                    
+                    if (hoursSinceLastDrink > 2) {
+                        document.getElementById('hydrationTitle').textContent = '該喝水了！';
+                        document.getElementById('hydrationMessage').textContent = '距離上次喝水已經超過2小時';
+                        document.getElementById('waterDrop').style.animation = 'pulse 1s ease-in-out infinite';
+                    } else {
+                        document.getElementById('waterDrop').style.animation = 'pulse 2s ease-in-out infinite';
+                    }
+                }
+            }
+
+            saveHydrationData() {
+                const data = {
+                    drinkCount: this.drinkCount,
+                    lastDrinkTime: this.lastDrinkTime ? this.lastDrinkTime.toISOString() : null,
+                    date: new Date().toDateString()
+                };
+                localStorage.setItem('hydrationData', JSON.stringify(data));
+            }
+
+            loadHydrationData() {
+                const saved = localStorage.getItem('hydrationData');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.date === new Date().toDateString()) {
+                        this.drinkCount = data.drinkCount;
+                        this.lastDrinkTime = data.lastDrinkTime ? new Date(data.lastDrinkTime) : null;
+                        document.getElementById('drinkCount').textContent = `${this.drinkCount} 杯`;
+                    }
+                }
+            }
+
+            startAutoRefresh() {
+                // 每5分鐘更新一次天氣
+                setInterval(() => {
+                    this.fetchWeather();
+                }, 5 * 60 * 1000);
+                
+                // 每分鐘檢查喝水提醒
+                setInterval(() => {
+                    this.updateHydrationStatus();
+                }, 60 * 1000);
+            }
+
+            showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = `
+                    background: rgba(244, 67, 54, 0.2);
+                    border: 1px solid rgba(244, 67, 54, 0.5);
+                    border-radius: 15px;
+                    padding: 1rem;
+                    margin: 1rem 0;
+                    color: #ffcdd2;
+                    text-align: center;
+                `;
+                errorDiv.textContent = message;
+                
+                const weatherSection = document.getElementById('weather');
+                weatherSection.insertBefore(errorDiv, weatherSection.firstChild);
+                
+                setTimeout(() => {
+                    errorDiv.remove();
+                }, 5000);
+            }
+        }
+
+        // 初始化天氣儀表板
+        document.addEventListener('DOMContentLoaded', function() {
+            // 午餐選擇器功能
+            const randomBtn = document.getElementById('randomLunch');
+            const resultDiv = document.getElementById('result');
+            
+            // 午餐選項陣列
+            const lunchOptions = [
+                // 麵食類
+                '牛肉麵', '陽春麵', '炸醬麵', '擔擔麵', '麻醬麵',
+                // 飯食類
+                '滷肉飯', '雞肉飯', '排骨飯', '雞腿飯', '魚排飯',
+                // 熱炒類
+                '宮保雞丁', '麻婆豆腐', '魚香肉絲', '青椒炒肉', '蒜苗炒肉',
+                // 輕食類
+                '沙拉', '三明治', '壽司', '便當', '湯麵',
+                // 額外選項
+                '火鍋', '燒烤', '披薩', '漢堡', '義大利麵', '炒飯', '水餃', '小籠包'
+            ];
+            
+            // 隨機選擇函數
+            function getRandomLunch() {
+                const randomIndex = Math.floor(Math.random() * lunchOptions.length);
+                return lunchOptions[randomIndex];
+            }
+            
+            // 點擊按鈕事件
+            randomBtn.addEventListener('click', function() {
+                // 按鈕動畫效果
+                randomBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    randomBtn.style.transform = 'scale(1)';
+                }, 150);
+                
+                // 顯示結果
+                const selectedLunch = getRandomLunch();
+                resultDiv.textContent = `🎉 今天午餐吃：${selectedLunch} 🎉`;
+                resultDiv.className = 'lunch-result show';
+                
+                // 3秒後隱藏動畫效果
+                setTimeout(() => {
+                    resultDiv.classList.remove('show');
+                }, 3000);
+            });
+            
+            // 添加鍵盤快捷鍵支援
+            document.addEventListener('keydown', function(event) {
+                if (event.code === 'Space' && event.target === document.body) {
+                    event.preventDefault();
+                    randomBtn.click();
+                }
+            });
+            
+            // 添加觸控支援（針對手機）
+            randomBtn.addEventListener('touchstart', function(event) {
+                event.preventDefault();
+                randomBtn.click();
+            });
+            
+            // 初始化天氣儀表板
+            new WeatherDashboard();
         });
     </script>
 </body>
